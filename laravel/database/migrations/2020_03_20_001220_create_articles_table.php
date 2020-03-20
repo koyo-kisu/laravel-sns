@@ -15,6 +15,7 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('title');
             $table->text('body');
             $table->bigInteger('user_id');
             // articlesテーブルのuser_idカラムは、usersテーブルのidカラムを参照すること
