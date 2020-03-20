@@ -22,6 +22,7 @@ class RegisterController extends Controller
     |
     */
 
+    // トレイトとしてまとめたRegisterUsersを使用
     use RegistersUsers;
 
     /**
@@ -29,6 +30,8 @@ class RegisterController extends Controller
      *
      * @var string
      */
+
+    // RouteServiceProviderクラスの定数Homeを$redirectToに代入
     protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
@@ -50,8 +53,11 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            // alpha_num: 英数字であるかをチェック
+            // unique:users: usersテーブルの他のレコードのnameカラムに、(ユーザー登録画面から)リクエストされたnameと同じ値が無いことをチェック 
+            'name' => ['required', 'string', 'max:16', 'alpha_num', 'min:3', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            // google認証にのみpasswordはnullableなのでここは変更しない
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }

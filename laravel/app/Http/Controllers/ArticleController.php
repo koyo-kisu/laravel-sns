@@ -1,52 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Article;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
     public function index() {
-        $articles = [
-            // 配列がオブジェクト型に変換
-            (object) [
-                'id' => 1,
-                'title' => 'タイトル1',
-                'body' => '本文1',
-                'created_at' => now(),
-                'user' => (object) [
-                    'id' => 1,
-                    'name' => 'ユーザー名1',
-                ],
-            ],
-            // 配列がオブジェクト型に変換
-            (object) [
-                'id' => 2,
-                'title' => 'タイトル2',
-                'body' => '本文2',
-                'created_at' => now(),
-                'user' => (object) [
-                    'id' => 2,
-                    'name' => 'ユーザー名2',
-                ],
-            ],
-            // 配列がオブジェクト型に変換
-            (object) [
-                'id' => 3,
-                'title' => 'タイトル3',
-                'body' => '本文3',
-                'created_at' => now(),
-                'user' => (object) [
-                    'id' => 3,
-                    'name' => 'ユーザー名3',
-                ],
-            ],
-				];
-				// ビュー変数articlesをarticles.indexファイルに渡す
-				return view('articles.index', ['articles' => $articles]);
-				
-				// with()/compact()を使用した他の書き方もあるので覚えとく
-				// return view('articles.index')->with(['articles' => $articles]);
-				// return view('articles.index', compact('articles'));
+			// sortByDescメソッド（コレクション）を使いcreated_atの降順で並び替え
+			$articles = Article::all()->sortByDesc('created_at');
+
+			// ビュー変数articlesをarticles.indexファイルに渡す
+			return view('articles.index', ['articles' => $articles]);
     }
 }

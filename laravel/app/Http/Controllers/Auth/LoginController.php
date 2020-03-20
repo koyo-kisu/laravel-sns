@@ -19,6 +19,7 @@ class LoginController extends Controller
     |
     */
 
+    // AuthenticatedUsersトレイトを定義
     use AuthenticatesUsers;
 
     /**

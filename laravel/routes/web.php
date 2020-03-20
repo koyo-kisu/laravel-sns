@@ -10,5 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+// 認証関連のルーティングのひな形を用意
+Auth::routes();
 
 Route::get('/', 'ArticleController@index');
